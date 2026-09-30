@@ -4,11 +4,11 @@
 # em ~-28 LUFS (medido), 4x mais baixa que os outros vídeos do feed.
 # Só VOLUME: sem denoise, sem EQ, sem highpass — o timbre da voz fica igual.
 # Vídeo é copiado (sem re-encode); só o áudio passa pelo loudnorm. Leva segundos.
-# Pra desligar ou mudar o alvo:  MOTOR_LOUDNESS=off | MOTOR_LOUDNESS=-16
+# Pra LIGAR (vem desligado):  MOTOR_LOUDNESS=-18 ./iniciar_app.sh  (ou -16, -14)
 set -euo pipefail
 
 ARQ="saida/video_final.mp4"
-ALVO="${MOTOR_LOUDNESS:--14}"
+ALVO="${MOTOR_LOUDNESS:-off}"   # DESLIGADO por padrão: o usuário achou alto e ajusta no editor
 [ "$ALVO" = "off" ] && { echo ">> Volume: desligado (MOTOR_LOUDNESS=off)"; exit 0; }
 
 source scripts/_encode.sh   # -> AENC

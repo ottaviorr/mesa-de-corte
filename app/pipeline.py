@@ -54,7 +54,7 @@ ROTULOS = {
     'zoom': 'Aplicando zoom de ênfase',
     'montagem': 'Montagem (intro + CTA)',
     'velocidade': 'Acelerando',
-    'finalizar': 'Finalizando master (volume)',
+    'finalizar': 'Finalizando master',
 }
 
 PESOS = {'normalizar': 18, 'silencio': 22, 'transcrever': 30, 'analise': 8, 'zoom': 12,

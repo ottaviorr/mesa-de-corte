@@ -15,6 +15,13 @@ SEM_TERMINAL=0
 if [ -d .venv/Scripts ]; then
   [ -f .venv/Scripts/python3.exe ] || cp .venv/Scripts/python.exe .venv/Scripts/python3.exe
   export PATH="$PWD/.venv/Scripts:$PATH"
+  # Os .exe da venv (auto-editor, whisper) gravam o caminho ABSOLUTO do python:
+  # se a pasta do projeto for movida, eles saem com código 1 sem dizer nada.
+  # Reinstalar sem deps só regenera os lançadores (rápido).
+  if ! auto-editor --version >/dev/null 2>&1; then
+    echo ">> venv movida de pasta — refazendo lançadores do auto-editor/whisper..."
+    python3 -m pip install -q --force-reinstall --no-deps auto-editor openai-whisper || true
+  fi
 elif [ -d .venv/bin ]; then
   export PATH="$PWD/.venv/bin:$PATH"
 fi

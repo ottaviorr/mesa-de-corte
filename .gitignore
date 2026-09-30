@@ -1,0 +1,43 @@
+# Gravações, saídas e intermediários — NUNCA subir (privados e pesados)
+/entrada/*
+/saida/*
+/trabalho/*
+!/entrada/.gitkeep
+!/saida/.gitkeep
+!/trabalho/.gitkeep
+!/assets/.gitkeep
+
+# Mídia (rede de segurança)
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.m4v
+*.avi
+*.srt
+*.vtt
+*.tsv
+
+# Node (interface) e build gerado
+node_modules/
+/app/ui/dist/
+/app/static/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Logs do app (gerados em runtime)
+*.log
+/app/mesa-de-corte.log
+
+# Lockfile órfão da raiz (o app fica em app/ui)
+/package-lock.json
+
+# Config local do Claude Code (pessoal)
+.claude/settings.local.json
+
+# macOS
+.DS_Store
+**/.DS_Store

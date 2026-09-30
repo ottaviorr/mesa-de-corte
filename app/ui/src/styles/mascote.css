@@ -1,0 +1,231 @@
+/* mascote.css — o gatinho (sentado / andando / carinho / arrastado / pousando /
+   bocejo / lambendo / dormindo / feliz).
+   Estilo flat: gato preto, olhos laranja em anel, orelhas salmão, rabo no chão. */
+
+.mascote {
+  --gato: #2f2629; --laranja: #e8913a; --salmao: #e8674a;
+  position: fixed; left: 0; top: 0; z-index: 90;
+  pointer-events: none; line-height: 0; will-change: transform;
+}
+.mascote svg {
+  pointer-events: auto; cursor: grab; overflow: visible; touch-action: none;
+  /* contorno de luz leve pro gato preto não sumir no fundo escuro */
+  filter: drop-shadow(0 0 1.2px #c4b5fd66) drop-shadow(0 8px 14px #0009);
+  animation: mascote-entra .6s cubic-bezier(.2, 1.4, .4, 1) backwards;
+  transition: filter .3s;
+}
+@keyframes mascote-entra { from { opacity: 0; transform: translateY(20px) scale(.6); } }
+.gato-pendura { will-change: transform; }
+.gato-flip { transition: transform .25s ease; }
+.gato-flip.virado { transform: scaleX(-1); }
+
+/* cores */
+.gato-pelo, .gato-rabo { fill: var(--gato); }
+.gato-braco-pelo { fill: none; stroke: var(--gato); }
+.gato-rosa { fill: var(--salmao); }
+.gato-sombra { fill: #a78bfa; opacity: .12; transform-box: fill-box; transform-origin: center; transition: transform .25s, opacity .25s; }
+.gato-bochecha { fill: var(--salmao); opacity: 0; transition: opacity .3s; }
+.gato-olho { fill: var(--laranja); transition: fill .3s; }
+.gato-nariz { fill: var(--salmao); stroke: var(--salmao); stroke-width: .5; stroke-linejoin: round; }
+.gato-boca { fill: none; stroke: var(--salmao); stroke-width: .5; stroke-linecap: round; }
+.gato-arco { fill: none; stroke: var(--laranja); stroke-width: 1.4; stroke-linecap: round; }
+.boca-o { fill: #5a1f24; }
+.gato-lingua { fill: #f28b8b; }
+
+/* peças escondidas por padrão (cada estado liga as suas) */
+.olhos-fechados, .olhos-felizes, .boca-o, .boca-bocejo, .gato-lingua, .gato-braco { display: none; }
+
+/* ---------------------------------------------------------------- base */
+.gato-todo, .gato-respira { transform-box: fill-box; transform-origin: 50% 100%; }
+.gato-respira { animation: respira 3.2s ease-in-out infinite; }
+@keyframes respira { 50% { transform: scale(1.012, 1.03); } }
+
+.gato-cabeca { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .35s ease-out; }
+.gato-pupila { transform-box: fill-box; transform-origin: center; transition: transform .15s ease-out; }
+.pata-e, .pata-d { transform-box: fill-box; transform-origin: 50% 0%; }
+
+/* piscada (a classe .pisca é ligada pelo JS em ritmo irregular) */
+.olhos-abertos { transform-box: fill-box; transform-origin: center; transition: transform .06s; }
+.pisca .olhos-abertos { transform: scaleY(.1); }
+
+/* rabo deitado no chão que dá umas "chicotadas" pra cima de vez em quando */
+.gato-rabo {
+  transform-box: fill-box; transform-origin: 0% 50%;
+  animation: rabo 3.4s ease-in-out infinite;
+}
+@keyframes rabo {
+  0%, 55%, 100% { transform: rotate(0); }
+  68% { transform: rotate(-18deg); } 80% { transform: rotate(-5deg); } 90% { transform: rotate(-12deg); }
+}
+
+.orelha-e, .orelha-d { transform-box: fill-box; transition: transform .25s; }
+.orelha-d { transform-origin: 20% 100%; animation: orelha 6.5s infinite; }
+.orelha-e { transform-origin: 80% 100%; animation: orelha-e 9s 2s infinite; }
+@keyframes orelha {
+  0%, 90%, 100% { transform: none; }
+  92% { transform: rotate(14deg); } 94% { transform: rotate(-4deg); } 96% { transform: rotate(8deg); }
+}
+@keyframes orelha-e {
+  0%, 93%, 100% { transform: none; }
+  95% { transform: rotate(-12deg); } 97% { transform: rotate(3deg); }
+}
+
+/* ---------------------------------------------------------------- andando */
+.andando .gato-todo { animation: trote .34s ease-in-out infinite alternate; }
+@keyframes trote { from { transform: translateY(0) rotate(-2deg); } to { transform: translateY(-3px) rotate(2deg); } }
+.andando .gato-cabeca { animation: cabeca-anda .34s ease-in-out infinite alternate; }
+@keyframes cabeca-anda { from { transform: translateY(0) rotate(-1.5deg); } to { transform: translateY(.8px) rotate(1.5deg); } }
+.andando .pata-e, .andando .pata-d { animation: passo .34s ease-in-out infinite alternate; }
+.andando .pata-d { animation-delay: -.34s; }
+@keyframes passo { to { transform: translateY(-3px); } }
+.andando .orelha-e, .andando .orelha-d { animation: orelha-anda .34s ease-in-out infinite alternate; }
+@keyframes orelha-anda { to { transform: rotate(5deg); } }
+.andando .gato-rabo { animation: rabo-anda .5s ease-in-out infinite alternate; }
+@keyframes rabo-anda { from { transform: rotate(-4deg); } to { transform: rotate(-16deg); } }
+.andando .gato-sombra { animation: sombra-anda .34s ease-in-out infinite alternate; }
+@keyframes sombra-anda { to { transform: scaleX(.9); opacity: .08; } }
+
+/* ---------------------------------------------------------------- carinho (mouse em cima) */
+.carinho .olhos-abertos { display: none; }
+.carinho .olhos-felizes { display: inline; }
+.carinho .gato-bochecha { opacity: .6; }
+.carinho .gato-cabeca { transform: rotate(-6deg) !important; }
+.carinho .gato-todo { animation: ronrona .09s linear infinite alternate; }
+@keyframes ronrona { from { transform: translateX(-.25px); } to { transform: translateX(.25px); } }
+.carinho .gato-rabo { animation: rabo-anda 1.4s ease-in-out infinite alternate; }
+.carinho .orelha-e { transform: rotate(-10deg); animation: none; }
+.carinho .orelha-d { transform: rotate(10deg); animation: none; }
+
+/* ---------------------------------------------------------------- arrastado (pendurado) */
+.arrastado svg { cursor: grabbing; filter: drop-shadow(0 0 1.2px #c4b5fd66) drop-shadow(0 22px 18px #000b); }
+.arrastado .gato-respira { animation: none; transform: scale(.97, 1.07); }
+.arrastado .gato-sombra { opacity: 0; }
+.arrastado .pata-e, .arrastado .pata-d { animation: chute .32s ease-in-out infinite alternate; }
+.arrastado .pata-d { animation-delay: -.32s; }
+@keyframes chute { from { transform: translateY(3px) rotate(-10deg); } to { transform: translateY(4px) rotate(10deg); } }
+.arrastado .gato-rabo { animation: rabo-pendurado .9s ease-in-out infinite alternate; }
+@keyframes rabo-pendurado { from { transform: rotate(58deg); } to { transform: rotate(74deg); } }
+.arrastado .gato-pupila { transform: scale(.55) !important; }
+.arrastado .boca-normal { display: none; }
+.arrastado .boca-o { display: inline; }
+.arrastado .orelha-e { transform: rotate(-16deg); animation: none; }
+.arrastado .orelha-d { transform: rotate(16deg); animation: none; }
+
+/* ---------------------------------------------------------------- pousando ("plop") */
+.pousando .gato-todo { animation: pousa .5s ease-out; }
+@keyframes pousa {
+  0% { transform: scale(1.08, .8); }
+  40% { transform: translateY(-3px) scale(.95, 1.08); }
+  70% { transform: scale(1.03, .96); }
+}
+.pousando .gato-sombra { animation: sombra-pousa .5s ease-out; }
+@keyframes sombra-pousa { 0% { transform: scaleX(1.25); opacity: .2; } }
+
+/* ---------------------------------------------------------------- bocejo */
+.bocejo .olhos-abertos, .bocejo .boca-normal { display: none; }
+.bocejo .olhos-fechados, .bocejo .boca-bocejo { display: inline; }
+.boca-bocejo { transform-box: fill-box; transform-origin: 50% 0%; }
+.bocejo .boca-bocejo { animation: boceja 2s ease-in-out forwards; }
+@keyframes boceja { 0% { transform: scale(.2, 0); } 30%, 70% { transform: scale(1); } 100% { transform: scale(.2, 0); } }
+.bocejo .gato-cabeca { animation: cabeca-boceja 2s ease-in-out; }
+@keyframes cabeca-boceja { 30%, 70% { transform: rotate(-4deg) translateY(-1.2px); } }
+.bocejo .orelha-e { animation: orelha-boceja-e 2s ease-in-out; }
+.bocejo .orelha-d { animation: orelha-boceja-d 2s ease-in-out; }
+@keyframes orelha-boceja-e { 30%, 70% { transform: rotate(-14deg); } }
+@keyframes orelha-boceja-d { 30%, 70% { transform: rotate(14deg); } }
+.bocejo .gato-respira { animation: espreguica 2s ease-in-out; }
+@keyframes espreguica { 30%, 70% { transform: scale(1.03, 1.06); } }
+
+/* ---------------------------------------------------------------- lambendo a patinha */
+.lambendo .olhos-abertos, .lambendo .boca-normal { display: none; }
+.lambendo .olhos-fechados, .lambendo .gato-braco, .lambendo .gato-lingua { display: inline; }
+.lambendo .pata-e { opacity: 0; }
+.gato-braco { transform-box: fill-box; transform-origin: 50% 100%; }
+.lambendo .gato-braco { animation: lambe .42s ease-in-out infinite alternate; }
+@keyframes lambe { from { transform: rotate(-7deg) translateY(.6px); } to { transform: rotate(4deg); } }
+.lambendo .gato-cabeca { animation: cabeca-lambe .42s ease-in-out infinite alternate; }
+@keyframes cabeca-lambe { from { transform: rotate(4deg); } to { transform: rotate(-1deg) translateY(.5px); } }
+.gato-lingua { transform-box: fill-box; transform-origin: 50% 0%; }
+.lambendo .gato-lingua { animation: lingua .42s ease-in-out infinite alternate; }
+@keyframes lingua { from { transform: scaleY(.2); } to { transform: scaleY(1.2); } }
+
+/* ---------------------------------------------------------------- dormindo */
+.dormindo .olhos-abertos { display: none; }
+.dormindo .olhos-fechados { display: inline; }
+.dormindo .gato-cabeca { transform: rotate(8deg) translateY(2px) !important; transition-duration: 1.2s; }
+.dormindo .gato-respira { animation: respira-sono 4.8s ease-in-out infinite; }
+@keyframes respira-sono { 50% { transform: scale(1.02, 1.05); } }
+.dormindo .gato-rabo { animation-play-state: paused; }
+.dormindo .orelha-e { transform: rotate(-8deg); animation: none; }
+.dormindo .orelha-d { transform: rotate(8deg); animation: none; }
+
+/* ---------------------------------------------------------------- feliz (clique) */
+.feliz .olhos-abertos { display: none; }
+.feliz .olhos-felizes { display: inline; }
+.feliz .gato-bochecha { opacity: .8; }
+.feliz .gato-todo { animation: pulo .5s cubic-bezier(.3, 1.6, .5, 1) 2; }
+@keyframes pulo {
+  30% { transform: translateY(-10px) scaleY(1.05); }
+  60% { transform: translateY(0) scale(1.06, .92); }
+}
+.feliz .gato-sombra { animation: sombra-pulo .5s 2; }
+@keyframes sombra-pulo { 30% { transform: scaleX(.7); opacity: .06; } }
+.feliz .gato-rabo { animation: rabo-anda .25s ease-in-out infinite alternate; }
+
+/* editando: olhos brilhando */
+.ativo .gato-olho { fill: #ffb45e; filter: drop-shadow(0 0 2.5px #ffa94d); }
+
+/* ---------------------------------------------------------------- extras (não espelham) */
+.gato-balao {
+  position: absolute; z-index: 1; bottom: calc(100% + 4px); left: 33%;
+  line-height: 1; white-space: nowrap;
+  font-size: 12px; font-weight: 700; color: #1b1530;
+  background: #f4f3f8; border-radius: 999px; padding: 5px 10px;
+  box-shadow: 0 6px 16px #0008;
+  animation: balao 1.8s cubic-bezier(.2, 1.4, .4, 1) forwards;
+}
+@keyframes balao {
+  from { opacity: 0; transform: translate(-50%, 8px) scale(.5); }
+  15% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  80% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -6px) scale(.9); }
+}
+
+.gato-coracoes { position: absolute; z-index: 1; left: 33%; top: 18px; line-height: 1; }
+.gato-coracoes i {
+  position: absolute; font-style: normal; font-size: 15px; color: #f472b6;
+  text-shadow: 0 0 8px #f472b688; opacity: 0;
+  animation: coracao 1.4s ease-out forwards;
+}
+.gato-coracoes i:nth-child(1) { --dx: -30px; }
+.gato-coracoes i:nth-child(2) { --dx: 4px; animation-delay: .15s; font-size: 12px; }
+.gato-coracoes i:nth-child(3) { --dx: 28px; animation-delay: .3s; }
+@keyframes coracao {
+  from { opacity: 0; transform: translate(0, 0) scale(.4); }
+  20% { opacity: 1; }
+  to { opacity: 0; transform: translate(var(--dx), -46px) scale(1.2); }
+}
+
+.gato-zz { position: absolute; z-index: 1; left: 52%; top: 4px; line-height: 1; }
+.gato-zz i {
+  position: absolute; font-style: normal; font-weight: 800; font-size: 13px;
+  color: var(--ambar-claro); opacity: 0;
+  animation: zz 3s ease-in-out infinite;
+}
+.gato-zz i:nth-child(2) { animation-delay: 1s; font-size: 11px; }
+.gato-zz i:nth-child(3) { animation-delay: 2s; font-size: 16px; }
+@keyframes zz {
+  from { opacity: 0; transform: translate(0, 0) scale(.6); }
+  30% { opacity: 1; }
+  to { opacity: 0; transform: translate(16px, -30px) scale(1.2); }
+}
+.gato-prr i { font-size: 10px; font-weight: 700; color: #f9a8d4; animation-duration: 1.8s; }
+.gato-prr i:nth-child(2) { animation-delay: .9s; font-size: 10px; }
+
+.virado .gato-balao, .virado .gato-coracoes { left: 67%; }
+.virado .gato-zz { left: 80%; }
+
+@media (max-width: 640px) { .mascote svg { width: 64px; height: 64px; } }
+@media (prefers-reduced-motion: reduce) {
+  .mascote svg, .mascote *, .gato-balao, .gato-coracoes i, .gato-zz i { animation: none !important; }
+}

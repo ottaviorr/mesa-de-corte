@@ -1,0 +1,78 @@
+/* thumb.css — bloco "Material pra thumbnail" na tela de master pronto */
+
+.th {
+  margin-top: 30px;
+  padding-top: 26px;
+  border-top: 1px solid var(--linha-forte);
+}
+
+.th-cabec {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 18px;
+}
+.th-cabec .secao { margin-bottom: 0; }
+.th-baixar { font-size: 12px; padding: 6px 12px; }
+
+.th-campo { margin-bottom: 18px; }
+.th-rotulo {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .26em;
+  text-transform: uppercase; color: var(--texto-apagado); margin-bottom: 8px;
+}
+.th-rotulo small {
+  letter-spacing: .1em; text-transform: none; color: var(--texto-apagado);
+  opacity: .8; margin-left: 8px;
+}
+
+/* botão-campo copiável: reset de botão + hover revela "copiar" */
+.th-copiavel {
+  position: relative; display: block; width: 100%; text-align: left;
+  background: linear-gradient(170deg, var(--painel-2), var(--painel));
+  border: 1px solid var(--linha-forte); border-radius: var(--raio-sm);
+  padding: 13px 16px; color: var(--texto); cursor: pointer;
+  font-family: inherit; transition: border-color .15s, background .15s;
+}
+.th-copiavel:hover { border-color: var(--ambar); }
+.th-copia {
+  position: absolute; top: 8px; right: 10px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--texto-apagado);
+  opacity: 0; transition: opacity .15s, color .15s;
+}
+.th-copiavel:hover .th-copia { opacity: 1; }
+.th-copia:not(:empty) { pointer-events: none; }
+/* estado "copiado ✓" fica verde e visível mesmo sem hover */
+.th-copiavel .th-copia:is(:hover, :focus) { color: var(--ambar); }
+
+.th-titulo .th-conteudo {
+  font-size: 19px; font-weight: 700; color: var(--ambar-claro); line-height: 1.35;
+  display: block; padding-right: 60px;
+}
+
+.th-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.th-chip {
+  display: inline-flex; align-items: center; width: auto;
+  padding: 9px 15px; border-radius: var(--raio-sm);
+}
+.th-chip .th-conteudo {
+  font-family: var(--mono); font-weight: 700; font-size: 14px;
+  letter-spacing: .06em; color: var(--verde); text-transform: uppercase;
+}
+.th-chip .th-copia { position: static; opacity: .5; margin-left: 10px; }
+.th-chip:hover .th-copia { opacity: 1; }
+
+.th-bloco .th-conteudo {
+  display: block; color: var(--texto-dim); line-height: 1.6; padding-right: 60px;
+}
+.th-prompt .th-conteudo {
+  font-family: var(--mono); font-size: 13px; color: var(--texto);
+}
+
+.th-refs { list-style: none; display: grid; gap: 8px; }
+.th-refs li {
+  position: relative; padding: 10px 14px 10px 34px;
+  background: var(--ambar-fundo); border: 1px solid var(--linha);
+  border-radius: var(--raio-sm); color: var(--texto-dim); font-size: 14px; line-height: 1.4;
+}
+.th-refs li::before {
+  content: "🖼"; position: absolute; left: 12px; top: 10px; font-size: 13px;
+}

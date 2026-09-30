@@ -1,0 +1,104 @@
+/* preparo.css — Tela 1: KPIs, upload (dropzone) e canais (modos) */
+
+/* fileira de KPIs, como os cards de métrica do Painel */
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 16px; }
+@media (max-width: 1000px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.kpis .card + .card { margin-top: 0; }
+.kpi { display: flex; flex-direction: column; gap: 8px; padding: 20px 22px; }
+.kpi-t { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-dim); }
+.kpi-v { font-size: 28px; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+.kpi-sub { font-size: 12.5px; color: var(--texto-apagado); }
+.kpi-sub.bom { color: var(--verde); }
+.kpi-sub.alerta { color: var(--amarelo); }
+.kpi-sub.ruim { color: var(--vermelho); }
+
+.preparo-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 16px;
+  align-items: start;
+}
+.preparo-grid .card + .card { margin-top: 0; }
+@media (max-width: 1000px) { .preparo-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.dropzone {
+  position: relative; cursor: pointer;
+  border: 1.5px dashed var(--linha-forte);
+  border-radius: 14px;
+  background: radial-gradient(circle at 50% 35%, #a78bfa12, transparent 65%), #0c0b12;
+  min-height: 300px;
+  display: grid; place-items: center;
+  transition: border-color .25s, box-shadow .25s, background .25s;
+  overflow: hidden;
+}
+.dropzone:hover, .dropzone.arrastando {
+  border-color: var(--ambar);
+  box-shadow: 0 0 44px #a78bfa1a;
+}
+.dropzone.arrastando { background: radial-gradient(circle at 50% 35%, #a78bfa26, transparent 70%), #0c0b12; }
+.dropzone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+.dz-conteudo {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  text-align: center; padding: 30px 40px; z-index: 1;
+}
+.dz-icone { width: 52px; color: var(--ambar); filter: drop-shadow(0 0 14px #a78bfa55); }
+.dz-conteudo strong { font-size: 19px; font-weight: 700; letter-spacing: -.01em; }
+.dz-conteudo small { color: var(--texto-dim); font-size: 13px; }
+.dz-conteudo .dz-nome {
+  font-family: var(--mono); color: var(--ambar-claro); font-size: 14px;
+  word-break: break-all; max-width: 100%;
+}
+.dz-conteudo .dz-troca { color: var(--texto-apagado); font-size: 12px; }
+
+.ja-na-entrada { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+.ja-na-entrada label { color: var(--texto-dim); font-size: 14px; }
+.ja-na-entrada code { font-family: var(--mono); color: var(--ambar-claro); font-size: 13px; }
+.ja-na-entrada select {
+  width: 100%;
+  background: #0c0b12; color: var(--texto);
+  border: 1px solid var(--linha-forte); border-radius: var(--raio-sm);
+  padding: 10px 12px; font-family: var(--mono); font-size: 13px;
+  outline: none;
+}
+.ja-na-entrada select:focus { border-color: var(--ambar); }
+
+/* canais — os 4 modos como canais de uma mesa */
+.canais { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 520px) { .canais { grid-template-columns: 1fr; } }
+
+.canal {
+  position: relative; text-align: left; cursor: pointer;
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 16px 16px 14px;
+  background: var(--painel-2);
+  border: 1px solid var(--linha); border-radius: 14px;
+  color: var(--texto); font-family: var(--display);
+  transition: border-color .2s, box-shadow .2s, transform .15s;
+}
+.canal:hover { transform: translateY(-1px); border-color: #4a4560; }
+.canal.selecionado {
+  border-color: var(--ambar);
+  box-shadow: 0 0 0 1px var(--ambar), 0 10px 30px -10px #a78bfa55;
+  background: linear-gradient(170deg, #1d1830, var(--painel));
+}
+.canal.selecionado::after {
+  content: "ATIVO";
+  position: absolute; top: 12px; right: 12px;
+  font-size: 9.5px; font-weight: 700;
+  letter-spacing: .1em; color: #0f0b1f;
+  background: var(--ambar); border-radius: 999px; padding: 3px 8px;
+  animation: surge .3s backwards;
+}
+.canal-num {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  color: var(--texto-apagado); letter-spacing: .18em;
+  display: flex; gap: 6px; align-items: center;
+}
+.canal.selecionado .canal-num { color: var(--ambar); }
+.canal-num em {
+  font-style: normal; font-size: 9px; letter-spacing: .1em;
+  border: 1px solid currentColor; border-radius: 6px; padding: 1px 5px;
+}
+.tag-ia { color: var(--azul); }
+.tag-vel { color: var(--ambar-claro); border-style: dashed; }
+.canal-nome { font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
+.canal-desc { font-size: 12.5px; color: var(--texto-dim); line-height: 1.45; }

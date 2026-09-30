@@ -1,0 +1,25 @@
+{
+  "name": "mesa-de-corte",
+  "private": true,
+  "version": "3.0.0",
+  "type": "module",
+  "description": "Interface (Vite + React) da Mesa de Corte. Roda 100% em localhost.",
+  "scripts": {
+    "dev": "concurrently -n api,ui -c yellow,cyan -k \"npm:dev:api\" \"npm:dev:ui\"",
+    "dev:api": "python3 ../servidor.py",
+    "dev:ui": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "vite": "^5.4.11"
+  }
+}

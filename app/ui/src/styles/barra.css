@@ -1,0 +1,91 @@
+/* barra.css — barra lateral (marca, etapas, usuário + REC) */
+
+.lateral {
+  position: sticky; top: 10px; align-self: flex-start;
+  width: 232px; flex: none; height: calc(100vh - 20px); margin: 10px 0 10px 10px;
+  display: flex; flex-direction: column; gap: 22px;
+  padding: 22px 12px 12px;
+  border: 1px solid var(--linha-forte); border-radius: 20px;
+  background: linear-gradient(180deg, #2a1d57 0%, #17132b 32%, #100f18 70%);
+  box-shadow: 0 20px 60px -20px #000c, inset 0 1px 0 #ffffff12;
+  z-index: 10;
+}
+
+.lateral-marca { display: flex; align-items: center; gap: 11px; padding: 0 6px; }
+.marca-icone {
+  width: 38px; height: 38px; flex: none; border-radius: 11px;
+  display: grid; place-items: center;
+  background: linear-gradient(145deg, #8b6cf6, #5b3cc4);
+  box-shadow: 0 8px 20px -6px #7c5cf0aa, inset 0 1px 0 #ffffff40;
+}
+.marca-icone svg {
+  width: 20px; height: 20px;
+  fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.marca-nome {
+  display: flex; flex-direction: column; line-height: 1.15;
+  font-size: 16px; font-weight: 700; letter-spacing: -.01em;
+}
+.marca-nome small { font-size: 11.5px; font-weight: 400; letter-spacing: 0; color: var(--texto-dim); }
+
+.lateral-nav { display: flex; flex-direction: column; gap: 3px; }
+.nav-item {
+  display: flex; align-items: center; gap: 11px;
+  padding: 10px 12px; border-radius: 11px;
+  font-size: 14px; color: var(--texto-dim);
+  transition: background .2s, color .2s;
+}
+.nav-item svg {
+  width: 17px; height: 17px; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+  opacity: .8;
+}
+.nav-item.atual {
+  color: var(--texto); font-weight: 600;
+  background: #ffffff12; box-shadow: inset 0 1px 0 #ffffff10;
+}
+.nav-item.atual svg { stroke: var(--ambar); opacity: 1; }
+
+.lateral-rodape { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
+.lateral-stack { font-size: 10.5px; color: var(--texto-apagado); padding: 0 10px; }
+
+.usuario {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 14px;
+  border: 1px solid var(--linha-forte); background: #ffffff06;
+}
+.avatar {
+  width: 34px; height: 34px; border-radius: 50%; flex: none;
+  display: grid; place-items: center;
+  font-size: 12px; font-weight: 700; color: #fde68a;
+  background: #3b2f0e; border: 1px solid #fbbf2433;
+}
+.usuario-txt { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.usuario-txt strong { font-size: 13.5px; font-weight: 600; }
+.usuario-txt small { font-size: 11.5px; color: var(--texto-apagado); }
+
+.rec {
+  width: 10px; height: 10px; border-radius: 50%; flex: none;
+  background: #2e2a3e; transition: background .3s;
+}
+.rec.ligado {
+  background: var(--vermelho);
+  box-shadow: 0 0 10px var(--vermelho);
+  animation: rec-pulsa 1.1s ease-in-out infinite;
+}
+@keyframes rec-pulsa { 50% { opacity: .45; } }
+
+/* no estreito, a lateral vira uma barra no topo */
+@media (max-width: 860px) {
+  #root { flex-direction: column; }
+  .lateral {
+    position: sticky; top: 0; align-self: stretch; width: auto; height: auto; margin: 0;
+    flex-direction: row; align-items: center; gap: 12px;
+    padding: 10px 16px; border-radius: 0; border-width: 0 0 1px;
+  }
+  .marca-nome small { display: none; }
+  .lateral-nav, .lateral-stack, .usuario-txt { display: none; }
+  .lateral-rodape { margin: 0 0 0 auto; }
+  .usuario { padding: 6px 8px; }
+  .avatar { width: 28px; height: 28px; }
+}

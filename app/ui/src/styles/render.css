@@ -1,0 +1,93 @@
+/* render.css — Tela 2: renderizando (VU meter, progresso, etapas, monitor) */
+
+.render-topo {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.onair {
+  font-size: 11px; font-weight: 700; letter-spacing: .12em;
+  color: var(--vermelho); background: #f8717114; border: 1px solid #f8717155;
+  border-radius: 999px; padding: 5px 11px;
+  animation: rec-pulsa 1.4s ease-in-out infinite;
+}
+.render-arquivo { font-family: var(--mono); font-size: 12.5px; color: var(--texto-dim); flex: 1; }
+
+/* VU meter decorativo */
+.vu {
+  display: flex; gap: 5px; align-items: flex-end; height: 42px;
+  margin-bottom: 24px;
+}
+.vu i {
+  flex: 1; max-width: 22px; height: 100%; border-radius: 4px;
+  background: linear-gradient(to top, #3b2a7a, var(--ambar) 60%, var(--ambar-claro));
+  transform-origin: bottom;
+  animation: vu-danca 1s ease-in-out infinite alternate;
+}
+.vu i:nth-child(3n)   { animation-duration: .62s; animation-delay: -.2s; }
+.vu i:nth-child(3n+1) { animation-duration: .85s; animation-delay: -.5s; }
+.vu i:nth-child(4n)   { animation-duration: .48s; animation-delay: -.36s; }
+.vu i:nth-child(5n)   { animation-duration: 1.15s; animation-delay: -.6s; }
+.vu i:nth-child(7n)   { animation-duration: .7s; animation-delay: -.1s; }
+@keyframes vu-danca {
+  from { transform: scaleY(.12); }
+  to { transform: scaleY(.95); }
+}
+.vu.parado i { animation-play-state: paused; transform: scaleY(.06); }
+
+.render-rotulo { font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; letter-spacing: -.02em; }
+.render-frase {
+  color: var(--texto-dim); font-size: 15px; min-height: 24px;
+  margin: 6px 0 22px; transition: opacity .4s;
+}
+
+/* barra de progresso */
+.filmstrip {
+  height: 10px; border-radius: 999px; overflow: hidden;
+  background: #1f1d2b; border: 1px solid var(--linha);
+}
+.filmstrip-fill {
+  height: 100%; width: 0%; border-radius: 999px;
+  background: linear-gradient(90deg, #6d4ae0, var(--ambar), var(--ambar-claro));
+  box-shadow: 0 0 18px #a78bfa66;
+  transition: width .6s cubic-bezier(.3, .8, .3, 1);
+}
+.pct { text-align: right; margin: 8px 2px 20px; font-size: 13px; }
+
+/* trilha de etapas */
+.etapas {
+  list-style: none; display: flex; flex-wrap: wrap; gap: 8px;
+}
+.etapas li {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; color: var(--texto-apagado);
+  border: 1px solid var(--linha); border-radius: 999px; padding: 6px 13px;
+  background: #ffffff04;
+  transition: all .3s;
+}
+.etapas li::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%;
+  background: #3a3650;
+}
+.etapas li.feita { color: var(--verde); border-color: #4ade8040; }
+.etapas li.feita::before { background: var(--verde); }
+.etapas li.atual {
+  color: var(--ambar-claro); border-color: #a78bfa88;
+  background: var(--ambar-fundo);
+}
+.etapas li.atual::before {
+  background: var(--ambar); box-shadow: 0 0 10px var(--ambar);
+  animation: rec-pulsa 1s infinite;
+}
+
+/* monitor de log */
+.monitor {
+  font-family: var(--mono); font-size: 11.5px; line-height: 1.65;
+  color: #b8b3d1; background: #0b0a10;
+  border: 1px solid var(--linha); border-radius: var(--raio-sm);
+  padding: 14px 16px; height: 190px; overflow-y: auto;
+  white-space: pre-wrap; word-break: break-all;
+}
+.monitor::-webkit-scrollbar { width: 8px; }
+.monitor::-webkit-scrollbar-thumb { background: #3a3650; border-radius: 999px; }
+
+.render-acoes { margin-top: 16px; text-align: right; }

@@ -1,0 +1,65 @@
+/* qualidade.css — painel avançado de codec/qualidade (colapsável) no preparo */
+
+.qualidade {
+  margin-top: 18px;
+  border: 1px solid var(--linha-forte); border-radius: var(--raio-sm);
+  background: linear-gradient(170deg, var(--painel-2), var(--painel));
+  overflow: hidden;
+}
+.qualidade > summary {
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  padding: 14px 16px; cursor: pointer; list-style: none;
+}
+.qualidade > summary::-webkit-details-marker { display: none; }
+.qualidade > summary::before {
+  content: "▸"; color: var(--texto-apagado); transition: transform .15s;
+  font-size: 12px;
+}
+.qualidade[open] > summary::before { transform: rotate(90deg); }
+.qualidade > summary .secao { margin-bottom: 0; }
+.q-resumo {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .04em;
+  color: var(--ambar); margin-left: auto;
+}
+
+.q-grade {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
+  padding: 4px 16px 18px;
+}
+.q-campo { display: flex; flex-direction: column; gap: 6px; }
+.q-campo.q-largo { grid-column: 1 / -1; }
+.q-campo > span {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--texto-dim);
+}
+.q-campo > span small {
+  letter-spacing: .04em; text-transform: none; color: var(--texto-apagado);
+  margin-left: 6px;
+}
+.q-campo select {
+  width: 100%; padding: 9px 11px;
+  background: var(--fundo); color: var(--texto);
+  border: 1px solid var(--linha-forte); border-radius: var(--raio-sm);
+  font-family: var(--display); font-size: 14px; cursor: pointer;
+}
+.q-campo select:disabled { opacity: .45; cursor: not-allowed; }
+.q-campo input[type="range"] { width: 100%; accent-color: var(--ambar); }
+
+.q-estimativa {
+  display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  margin-top: 2px; padding: 12px 14px;
+  border: 1px dashed var(--linha-forte); border-radius: var(--raio-sm);
+  background: var(--ambar-fundo);
+}
+.q-est-num {
+  font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--ambar);
+  font-variant-numeric: tabular-nums;
+}
+.q-est-num.q-est-forte { color: var(--verde); }
+.q-estimativa small {
+  flex-basis: 100%; font-size: 11px; color: var(--texto-apagado); letter-spacing: .02em;
+}
+
+@media (max-width: 620px) {
+  .q-grade { grid-template-columns: 1fr; }
+}

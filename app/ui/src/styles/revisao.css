@@ -1,0 +1,56 @@
+/* revisao.css — Tela 3: lista de cortes propostos pela IA */
+
+.lista-cortes { display: flex; flex-direction: column; gap: 10px; margin: 26px 0; }
+
+.corte {
+  display: grid; grid-template-columns: auto auto 1fr; gap: 6px 16px;
+  align-items: start;
+  background: linear-gradient(170deg, var(--painel-2), var(--painel));
+  border: 1px solid var(--linha-forte); border-radius: var(--raio-sm);
+  padding: 14px 16px; cursor: pointer;
+  transition: border-color .2s, opacity .2s;
+}
+.corte:hover { border-color: #4a4560; }
+.corte.desmarcado { opacity: .42; }
+.corte.desmarcado .corte-trecho { text-decoration: none; }
+.corte input { width: 18px; height: 18px; accent-color: var(--ambar); margin-top: 2px; cursor: pointer; }
+.corte-tempo { font-family: var(--mono); font-size: 13px; color: var(--ambar); white-space: nowrap; }
+.corte-corpo { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.corte-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.badge {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  border-radius: var(--raio-sm); padding: 3px 7px 2px;
+}
+.badge.recado { background: #a78bfa22; color: var(--ambar-claro); }
+.badge.take_repetido { background: #f8717122; color: #fca5a5; }
+.badge.hesitacao { background: #60a5fa22; color: var(--azul); }
+.badge.misto { background: #4ade8022; color: var(--verde); }
+.conf { font-family: var(--mono); font-size: 10.5px; color: var(--texto-apagado); }
+.corte-motivo { font-size: 13.5px; color: var(--texto-dim); }
+.corte-trecho {
+  font-size: 14px; color: var(--texto);
+  border-left: 2px solid var(--linha-forte); padding-left: 10px;
+  font-style: italic; text-decoration: line-through;
+  text-decoration-color: #f8717188; text-decoration-thickness: 1.5px;
+}
+
+/* zooms — cards com thumbnail mostrando ONDE o zoom acontece */
+.lista-zooms {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px; margin: 12px 0 26px;
+}
+.zoomcard {
+  display: flex; flex-direction: column; cursor: pointer;
+  background: linear-gradient(170deg, var(--painel-2), var(--painel));
+  border: 1px solid var(--linha-forte); border-radius: var(--raio-sm); overflow: hidden;
+  transition: border-color .2s, opacity .2s;
+}
+.zoomcard:hover { border-color: #4a4560; }
+.zoomcard.desmarcado { opacity: .42; }
+.zoom-thumb { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; background: #000; }
+.zoom-info { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 10px 12px; }
+.zoom-info input { width: 17px; height: 17px; accent-color: var(--ambar); cursor: pointer; }
+.zoom-info .corte-tempo { font-size: 12px; }
+.zoom-info .corte-motivo { flex-basis: 100%; font-size: 12px; }
+.badge.zoomtag { background: #a78bfa22; color: var(--ambar-claro); }

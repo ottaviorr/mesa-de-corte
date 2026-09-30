@@ -47,6 +47,7 @@ A legenda é gerada como ARQUIVO (.srt/.txt) mas NÃO é queimada no vídeo.
 5. `scripts/04_limpar.sh`                             -> trabalho/04_limpo.mp4
 6. `scripts/05_montar.sh`                             -> trabalho/05_montado.mp4
 7. `scripts/06_velocidade.sh`                         -> saida/video_final.mp4 (1,15x)
+8. `scripts/07_volume.sh`                             -> ajusta saida/video_final.mp4 pra -14 LUFS (só áudio)
 
 ## PASSO 4 — Como gerar trabalho/cortes.txt (a parte inteligente)
 Leia `trabalho/transcricao.srt` (tem texto + timestamps) e identifique trechos pra REMOVER:

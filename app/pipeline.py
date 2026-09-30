@@ -45,7 +45,7 @@ RE_PORCENTO = re.compile(r'(\d{1,3})(?:\.\d+)?%')
 RE_TEMPO = re.compile(r'time=(\d+):(\d+):([\d.]+)')
 
 ROTULOS = {
-    'normalizar': 'Normalizando (1080p / áudio)',
+    'normalizar': 'Preparando vídeo',
     'silencio': 'Caçando silêncios',
     'transcrever': 'Transcrevendo (Whisper PT-BR)',
     'analise': 'Análise inteligente (takes + zoom)',
@@ -54,7 +54,7 @@ ROTULOS = {
     'zoom': 'Aplicando zoom de ênfase',
     'montagem': 'Montagem (intro + CTA)',
     'velocidade': 'Acelerando',
-    'finalizar': 'Finalizando master',
+    'finalizar': 'Finalizando master (volume)',
 }
 
 PESOS = {'normalizar': 18, 'silencio': 22, 'transcrever': 30, 'analise': 8, 'zoom': 12,
@@ -419,6 +419,8 @@ class Pipeline:
 
             # 7) finalizar: legenda sincronizada + estatísticas
             self.definir_fase('finalizar')
+            self.rodar(['bash', 'scripts/07_volume.sh'], 'finalizar',
+                       ffprobe_duracao(os.path.join(RAIZ, 'saida/video_final.mp4')))
             # legenda: só nos canais de IA (vem de carona) ou quando o usuário pediu —
             # não emitir só porque transcrevemos pros prompts de thumb.
             if inteligente or job.get('legenda'):
